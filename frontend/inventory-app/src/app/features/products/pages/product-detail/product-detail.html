@@ -1,0 +1,57 @@
+<div class="detail-page">
+  <h2>Detalle del producto</h2>
+
+  @if (product(); as p) {
+    <mat-card>
+      <mat-card-content>
+        <div class="detail-body">
+          <div class="image-box">
+            @if (p.imageUrl) {
+              <img [src]="p.imageUrl" [alt]="p.name">
+            } @else {
+              <mat-icon>image_not_supported</mat-icon>
+            }
+          </div>
+
+          <div class="fields">
+            <div class="field">
+              <span class="label">Nombre</span>
+              <span class="value">{{ p.name }}</span>
+            </div>
+
+            <div class="field">
+              <span class="label">Categoría</span>
+              <span class="value">{{ p.category }}</span>
+            </div>
+
+            <div class="field">
+              <span class="label">Descripción</span>
+              <span class="value">{{ p.description }}</span>
+            </div>
+
+            <div class="field">
+              <span class="label">Precio</span>
+              <span class="value">{{ p.price | currency:'USD' }}</span>
+            </div>
+
+            <div class="field">
+              <span class="label">Stock disponible</span>
+              <span class="value">{{ p.stock }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="goToEdit()">
+          <mat-icon>edit</mat-icon> Editar
+        </button>
+        <button mat-stroked-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon> Volver
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  } @else if (!loading()) {
+    <p>No se encontró el producto.</p>
+  }
+</div>

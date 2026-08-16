@@ -33,6 +33,11 @@ export const routes: Routes = [
     loadComponent: () => import('./features/transactions/pages/transaction-form/transaction-form').then(m => m.TransactionForm)
     },
 
+    {
+        path: 'productos/detalle/:id',
+        loadComponent: () => import('./features/products/pages/product-detail/product-detail').then(m => m.ProductDetail)
+    },
+
     { path: '**', redirectTo: 'productos' }
   
 ];
