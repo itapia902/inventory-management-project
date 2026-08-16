@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { FileUploadService } from '../../../../core/services/file-upload.service';
 import { ProductService } from '../../services/product.service';
 
 @Component({
@@ -24,12 +25,14 @@ import { ProductService } from '../../services/product.service';
 export class ProductForm implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly productService = inject(ProductService);
+  private readonly fileUploadService = inject(FileUploadService);
   private readonly notification = inject(NotificationService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
   readonly loading = signal(false);
   readonly saving = signal(false);
+  readonly uploading = signal(false);
   readonly isEditMode = signal(false);
 
   private productId: string | null = null;
@@ -75,6 +78,30 @@ export class ProductForm implements OnInit {
     });
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (!file) return;
+
+    this.uploading.set(true);
+
+    this.fileUploadService.upload(file).subscribe({
+      next: response => {
+        this.form.controls.imageUrl.setValue(response.url);
+        this.uploading.set(false);
+        this.notification.success('Imagen subida correctamente.');
+      },
+      error: () => this.uploading.set(false)
+    });
+
+    input.value = '';
+  }
+
+  removeImage(): void {
+    this.form.controls.imageUrl.setValue('');
+  }
+
   save(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -116,4 +143,4 @@ export class ProductForm implements OnInit {
       error: () => this.saving.set(false)
     });
   }
-} 
+}

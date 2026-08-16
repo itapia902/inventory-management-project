@@ -1,5 +1,4 @@
-<p>product-form works!</p>
-<h2>{{ isEditMode() ? 'Editar producto' : 'Nuevo producto' }}</h2>
+<h2 class="page-title">{{ isEditMode() ? 'Editar producto' : 'Nuevo producto' }}</h2>
 
 @if (loading()) {
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -69,12 +68,41 @@
         }
       </mat-form-field>
 
+      <input
+        type="file"
+        #fileInput
+        hidden
+        accept="image/jpeg,image/png,image/webp"
+        (change)="onFileSelected($event)">
+
+      <div class="upload-actions">
+        <button
+          mat-stroked-button
+          type="button"
+          [disabled]="uploading()"
+          (click)="fileInput.click()">
+          <mat-icon>upload</mat-icon>
+          Subir imagen desde mi PC
+        </button>
+
+        @if (form.controls.imageUrl.value) {
+          <button mat-stroked-button type="button" (click)="removeImage()">
+            <mat-icon>delete</mat-icon>
+            Quitar imagen
+          </button>
+        }
+      </div>
+
+      @if (uploading()) {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      }
+
       @if (form.controls.imageUrl.valid && form.controls.imageUrl.value) {
         <img [src]="form.controls.imageUrl.value" alt="Vista previa" class="preview">
       }
 
       <div class="actions">
-        <button mat-flat-button color="primary" type="submit" [disabled]="saving()">
+        <button mat-flat-button color="primary" type="submit" [disabled]="saving() || uploading()">
           <mat-icon>save</mat-icon>
           {{ isEditMode() ? 'Guardar cambios' : 'Crear producto' }}
         </button>
