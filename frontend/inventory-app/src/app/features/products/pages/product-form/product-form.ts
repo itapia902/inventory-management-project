@@ -116,4 +116,4 @@ export class ProductForm implements OnInit {
       error: () => this.saving.set(false)
     });
   }
-}
+} 

@@ -36,4 +36,38 @@ body {
   margin: 0;
   height: 100%;
 }
-/* You can add global styles to this file, and also import other style files */
+.snackbar-success {
+  --mdc-snackbar-container-color: #2e7d32;
+  --mat-snack-bar-container-color: #2e7d32;
+
+  .mdc-snackbar__surface {
+    background-color: #2e7d32 !important;
+  }
+
+  .mdc-snackbar__label,
+  .mat-mdc-snack-bar-label {
+    color: #ffffff !important;
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+}
+
+.snackbar-error {
+  --mdc-snackbar-container-color: #c62828;
+  --mat-snack-bar-container-color: #c62828;
+
+  .mdc-snackbar__surface {
+    background-color: #c62828 !important;
+  }
+
+  .mdc-snackbar__label,
+  .mat-mdc-snack-bar-label {
+    color: #ffffff !important;
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+}
