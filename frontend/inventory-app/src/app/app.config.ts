@@ -4,13 +4,15 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { routes } from './app.routes';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
-    provideRouter(routes),
-    provideHttpClient(withInterceptors([errorInterceptor])),
-    provideAnimationsAsync()
-  ]
-};
+  provideBrowserGlobalErrorListeners(),
+  provideZonelessChangeDetection(),
+  provideRouter(routes),
+  provideHttpClient(withInterceptors([errorInterceptor])),
+  provideAnimationsAsync(),
+  provideNativeDateAdapter()
+]
+}
