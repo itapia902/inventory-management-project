@@ -144,7 +144,7 @@ export class TransactionForm implements OnInit {
 
     if (this.isEditMode()) {
       const request: UpdateTransactionRequest = {
-        transactionDate: value.transactionDate!.toISOString(),
+        transactionDate: this.toLocalIso(value.transactionDate!),
         quantity: value.quantity!,
         unitPrice: value.unitPrice!,
         detail: value.detail || null
@@ -156,7 +156,7 @@ export class TransactionForm implements OnInit {
       });
     } else {
       const request: CreateTransactionRequest = {
-        transactionDate: value.transactionDate!.toISOString(),
+        transactionDate: this.toLocalIso(value.transactionDate!),
         type: value.type!,
         productId: value.productId!,
         quantity: value.quantity!,
@@ -175,6 +175,16 @@ export class TransactionForm implements OnInit {
     this.notification.success(message);
     this.router.navigate(['/transacciones']);
   }
+
+  toLocalIso(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:00`;
+}
 
   cancel(): void {
     this.router.navigate(['/transacciones']);
