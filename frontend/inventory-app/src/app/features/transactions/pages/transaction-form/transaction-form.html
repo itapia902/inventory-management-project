@@ -1,0 +1,90 @@
+<div class="form-page">
+  <h2>{{ isEditMode() ? 'Editar transacción' : 'Nueva transacción' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Producto</mat-label>
+        <mat-select formControlName="productId" (selectionChange)="onProductChange($event.value)">
+          @for (product of products(); track product.id) {
+            <mat-option [value]="product.id">{{ product.name }}</mat-option>
+          }
+        </mat-select>
+        @if (form.get('productId')?.touched && form.get('productId')?.hasError('required')) {
+          <mat-error>El producto es obligatorio</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="type">
+          <mat-option [value]="1">Compra</mat-option>
+          <mat-option [value]="2">Venta</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    @if (currentStock() !== null) {
+      <p class="stock-info">Stock actual del producto: <strong>{{ currentStock() }}</strong></p>
+    }
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="transactionDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (form.get('transactionDate')?.touched && form.get('transactionDate')?.hasError('required')) {
+          <mat-error>La fecha es obligatoria</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" formControlName="quantity">
+        @if (form.get('quantity')?.touched && form.get('quantity')?.hasError('required')) {
+          <mat-error>La cantidad es obligatoria</mat-error>
+        }
+        @if (form.get('quantity')?.hasError('min')) {
+          <mat-error>La cantidad debe ser mayor a 0</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Precio unitario</mat-label>
+        <input matInput type="number" step="0.01" formControlName="unitPrice">
+        @if (form.get('unitPrice')?.touched && form.get('unitPrice')?.hasError('required')) {
+          <mat-error>El precio es obligatorio</mat-error>
+        }
+        @if (form.get('unitPrice')?.hasError('min')) {
+          <mat-error>El precio debe ser mayor a 0</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    @if (stockError()) {
+      <div class="stock-error">
+        <mat-icon>warning</mat-icon>
+        <span>{{ stockError() }}</span>
+      </div>
+    }
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Detalle</mat-label>
+      <textarea matInput rows="3" formControlName="detail"></textarea>
+    </mat-form-field>
+
+    <p class="total">Precio total: <strong>{{ total() | currency }}</strong></p>
+
+    <div class="actions">
+      <button mat-flat-button type="submit" [disabled]="saving()">
+        <mat-icon>save</mat-icon>
+        Guardar
+      </button>
+      <button mat-stroked-button type="button" (click)="cancel()">
+        <mat-icon>close</mat-icon>
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

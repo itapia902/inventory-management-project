@@ -17,5 +17,22 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/products/pages/product-form/product-form').then(m => m.ProductForm)
   },
-  { path: '**', redirectTo: 'productos' }
+
+  { 
+  path: 'transacciones',
+  loadComponent: () =>
+    import('./features/transactions/pages/transaction-list/transaction-list').then(m => m.TransactionList)
+    },
+
+    {
+    path: 'transacciones/nueva',
+    loadComponent: () => import('./features/transactions/pages/transaction-form/transaction-form').then(m => m.TransactionForm)
+    },
+    {
+    path: 'transacciones/editar/:id',
+    loadComponent: () => import('./features/transactions/pages/transaction-form/transaction-form').then(m => m.TransactionForm)
+    },
+
+    { path: '**', redirectTo: 'productos' }
+  
 ];
