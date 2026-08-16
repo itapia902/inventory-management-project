@@ -182,13 +182,6 @@ Las URLs de los microservicios están configuradas en `src/environments/environm
 
 ![Detalle de producto](docs/evidencias/08-detalle-producto.png)
 
-### Validación de stock insuficiente
-
-![Validación de stock](docs/evidencias/09-validacion-stock.png)
-
-### Mensaje de operación exitosa
-
-![Mensaje de éxito](docs/evidencias/10-mensaje-exito.png)
 
 ---
 
