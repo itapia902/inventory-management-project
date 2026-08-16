@@ -25,7 +25,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseCors("AllowAngular");
+app.UseStaticFiles();
+
+app.UseCors("AllowAngular");    
 
 app.UseExceptionHandler();
 
