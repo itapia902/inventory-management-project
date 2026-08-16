@@ -5,7 +5,7 @@ using ProductService.Domain.Shared;
 namespace ProductService.Infrastructure.Persistence.Specifications.ProductSpecifications;
 
 public class ProductByParametersSpecification : Specification<Product, ProductId>
-{
+{   
     public ProductByParametersSpecification(ProductFilter filter) : base(null)
     {
         if (!string.IsNullOrWhiteSpace(filter.Name))
