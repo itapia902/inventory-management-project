@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TransactionService.Application\TransactionService.Application.csproj" />
+    <ProjectReference Include="..\TransactionService.Domain\TransactionService.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
