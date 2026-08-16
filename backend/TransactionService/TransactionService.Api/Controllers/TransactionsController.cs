@@ -6,6 +6,7 @@ using TransactionService.Application.Transaction.Commands.CreateTransaction;
 using TransactionService.Application.Transaction.Commands.DeleteTransaction;
 using TransactionService.Application.Transaction.Commands.UpdateTransaction;
 using TransactionService.Application.Transaction.Queries.GetAllTransactions;
+using TransactionService.Application.Transaction.Queries.GetTransactionById;
 
 namespace TransactionService.Api.Controllers;
 
@@ -88,6 +89,19 @@ public class TransactionsController(ISender mediator) : ApiControllerBase
     public async Task<IActionResult> GetTransactions([FromQuery] GetAllTransactionsQuery query,CancellationToken cancellationToken)
     {
         var result = await mediator.Send(query, cancellationToken);
+
+        return result.Match<IActionResult>(Ok,HandleErrors);
+    }
+
+    /// <summary>
+    /// Get transaction by id
+    /// </summary>
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetTransactionById(Guid id,CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(new GetTransactionByIdQuery(id), cancellationToken);
 
         return result.Match<IActionResult>(Ok,HandleErrors);
     }
