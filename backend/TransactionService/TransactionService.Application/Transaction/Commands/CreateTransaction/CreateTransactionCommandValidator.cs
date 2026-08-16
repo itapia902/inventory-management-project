@@ -8,7 +8,7 @@ public class CreateTransactionCommandValidator : AbstractValidator<CreateTransac
     {
         RuleFor(x => x.TransactionDate)
             .NotEmpty().WithMessage("La fecha de la transacción es obligatoria.")
-            .LessThanOrEqualTo(_ => DateTime.UtcNow.AddMinutes(5))
+            .LessThan(_ => DateTime.UtcNow.Date.AddDays(1))
             .WithMessage("La fecha de la transacción no puede ser futura.");
 
         RuleFor(x => x.Type)
