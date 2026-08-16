@@ -1,19 +1,21 @@
 import { Routes } from '@angular/router';
 
-const loadProductList = () => import('./features/products/pages/product-list/product-list').then(m => m.ProductList);
-
 export const routes: Routes = [
-  { 
-    path: '', 
-    redirectTo: 'productos', 
-    pathMatch: 'full' 
-  },
+  { path: '', redirectTo: 'productos', pathMatch: 'full' },
   {
     path: 'productos',
-    loadComponent: loadProductList
+    loadComponent: () =>
+      import('./features/products/pages/product-list/product-list').then(m => m.ProductList)
   },
-  { 
-    path: '**', 
-    redirectTo: 'productos' 
-  }
+  {
+    path: 'productos/nuevo',
+    loadComponent: () =>
+      import('./features/products/pages/product-form/product-form').then(m => m.ProductForm)
+  },
+  {
+    path: 'productos/editar/:id',
+    loadComponent: () =>
+      import('./features/products/pages/product-form/product-form').then(m => m.ProductForm)
+  },
+  { path: '**', redirectTo: 'productos' }
 ];

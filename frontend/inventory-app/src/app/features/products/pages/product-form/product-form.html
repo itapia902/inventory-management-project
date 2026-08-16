@@ -1,0 +1,85 @@
+<p>product-form works!</p>
+<h2>{{ isEditMode() ? 'Editar producto' : 'Nuevo producto' }}</h2>
+
+@if (loading()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="save()" class="form">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" maxlength="150">
+        @if (form.controls.name.hasError('required')) {
+          <mat-error>El nombre es obligatorio.</mat-error>
+        }
+        @if (form.controls.name.hasError('maxlength')) {
+          <mat-error>El nombre no puede exceder 150 caracteres.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="description" rows="3" maxlength="500"></textarea>
+        @if (form.controls.description.hasError('required')) {
+          <mat-error>La descripción es obligatoria.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <input matInput formControlName="category" maxlength="100">
+        @if (form.controls.category.hasError('required')) {
+          <mat-error>La categoría es obligatoria.</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Precio</mat-label>
+          <input matInput type="number" formControlName="price" step="0.01">
+          <span matTextPrefix>$&nbsp;</span>
+          @if (form.controls.price.hasError('required')) {
+            <mat-error>El precio es obligatorio.</mat-error>
+          }
+          @if (form.controls.price.hasError('min')) {
+            <mat-error>El precio no puede ser negativo.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Stock {{ isEditMode() ? '(solo lectura)' : 'inicial' }}</mat-label>
+          <input matInput type="number" formControlName="stock">
+          @if (form.controls.stock.hasError('min')) {
+            <mat-error>El stock no puede ser negativo.</mat-error>
+          }
+          @if (isEditMode()) {
+            <mat-hint>El stock solo se modifica mediante transacciones.</mat-hint>
+          }
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>URL de la imagen</mat-label>
+        <input matInput formControlName="imageUrl" placeholder="https://...">
+        @if (form.controls.imageUrl.hasError('pattern')) {
+          <mat-error>Debe ser una URL válida que empiece por http:// o https://</mat-error>
+        }
+      </mat-form-field>
+
+      @if (form.controls.imageUrl.valid && form.controls.imageUrl.value) {
+        <img [src]="form.controls.imageUrl.value" alt="Vista previa" class="preview">
+      }
+
+      <div class="actions">
+        <button mat-flat-button color="primary" type="submit" [disabled]="saving()">
+          <mat-icon>save</mat-icon>
+          {{ isEditMode() ? 'Guardar cambios' : 'Crear producto' }}
+        </button>
+        <a mat-stroked-button routerLink="/productos">Cancelar</a>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
