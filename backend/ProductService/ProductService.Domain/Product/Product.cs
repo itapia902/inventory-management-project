@@ -1,5 +1,4 @@
-﻿using ErrorOr;
-using ProductService.Domain.Primitives;
+﻿using ProductService.Domain.Primitives;
 using ProductService.Domain.Product.ValueObjects;
 
 namespace ProductService.Domain.Product;
@@ -13,8 +12,8 @@ public class Product : AggregateRoot<ProductId>
     public int Stock { get; private set; }
     public bool IsActive { get; private set; }  
     public string? ImageUrl { get; private set; }
-    public DateTime CreatedDateTime { get; set; }
-    public DateTime? UpdatedDateTime { get; set; }
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime? UpdatedDateTime { get; private set; }
 
     private Product (ProductId id, string name, string description, string category, decimal price, string? imageUrl,int stock, bool isActive, DateTime createdDateTime) :base(id)
     {
