@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TransactionService.Api.Contracts.Request.Transaction;
 using TransactionService.Api.Shared;
 using TransactionService.Application.Transaction.Commands.CreateTransaction;
+using TransactionService.Application.Transaction.Queries.GetAllTransactions;
 
 namespace TransactionService.Api.Controllers;
 
@@ -35,5 +36,21 @@ public class TransactionsController(ISender mediator) : ApiControllerBase
         var result = await mediator.Send(command, cancellationToken);
 
         return result.Match<IActionResult>(id => Created($"/api/transactions/{id}", new { id }), HandleErrors);
+    }
+    /// <summary>
+    /// Get the transaction history using dynamic filters
+    /// </summary>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetTransactions(
+        [FromQuery] GetAllTransactionsQuery query,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(query, cancellationToken);
+
+        return result.Match<IActionResult>(
+            Ok,
+            HandleErrors);
     }
 }
