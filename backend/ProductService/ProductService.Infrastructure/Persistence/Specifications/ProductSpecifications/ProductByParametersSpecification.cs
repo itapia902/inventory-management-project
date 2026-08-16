@@ -1,6 +1,6 @@
 ﻿using ProductService.Domain.Product;
 using ProductService.Domain.Product.ValueObjects;
-using static ProductService.Domain.Product.Product;
+using ProductService.Domain.Shared;
 
 namespace ProductService.Infrastructure.Persistence.Specifications.ProductSpecifications;
 

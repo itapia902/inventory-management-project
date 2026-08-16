@@ -1,6 +1,7 @@
 ﻿using ProductService.Domain.Primitives;
 using ProductService.Domain.Product.ValueObjects;
 using ProductService.Domain.Repositories.Shared;
+using ProductService.Domain.Shared;
 using static ProductService.Domain.Product.Product;
 using ProductDomain = ProductService.Domain.Product.Product;
 

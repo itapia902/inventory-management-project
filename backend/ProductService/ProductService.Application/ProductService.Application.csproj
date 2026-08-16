@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Product\Commands\UpdateProduct\" />
     <Folder Include="Product\Queries\" />
   </ItemGroup>
 

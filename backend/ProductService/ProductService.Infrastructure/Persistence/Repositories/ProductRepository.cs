@@ -3,10 +3,10 @@ using ProductService.Domain.Primitives;
 using ProductService.Domain.Product;
 using ProductService.Domain.Product.ValueObjects;
 using ProductService.Domain.Repositories;
+using ProductService.Domain.Shared;
 using ProductService.Infrastructure.Persistence.Repositories.Shared;
 using ProductService.Infrastructure.Persistence.Specifications.ProductSpecifications;
 using System.Linq.Dynamic.Core;
-using static ProductService.Domain.Product.Product;
 
 namespace ProductService.Infrastructure.Persistence.Repositories;
 
