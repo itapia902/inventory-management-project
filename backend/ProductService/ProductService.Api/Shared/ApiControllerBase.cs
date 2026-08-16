@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ProductService.Api.Shared;
 
@@ -8,6 +9,16 @@ public class ApiControllerBase : ControllerBase
 {
     protected IActionResult HandleErrors(List<Error> errors)
     {
+        if (errors.All(error => error.Type == ErrorType.Validation))
+        {
+            var modelState = new ModelStateDictionary();
+
+            foreach (var error in errors)
+                modelState.AddModelError(error.Code, error.Description);
+
+            return ValidationProblem(modelState);
+        }
+
         var firstError = errors[0];
 
         var statusCode = firstError.Type switch
