@@ -28,5 +28,17 @@ public class Product : AggregateRoot<ProductId>
     public static Product Create(string name, string description, string category, decimal price, string? imageUrl, int stock) 
         =>new (ProductId.CreateUnique(),  name,  description,  category,  price,  imageUrl,  stock, true);
 
+    public void Update(string name, string description, string category, decimal price, string? imageUrl)
+    {
+        if (Name == name && Description == description && Category == category && Price == price && ImageUrl == imageUrl)
+            return;
+
+        Name = name;
+        Description = description;
+        Category = category;
+        Price = price;
+        ImageUrl = imageUrl;
+    }
+
     public record ProductFilter(string? Name = null, string? Category = null, decimal? MinPrice = null, decimal? MaxPrice = null, int? MinStock = null, string? SortBy = null, string SortDirection = "asc", int Page = 1, int PageSize = 10);
 }

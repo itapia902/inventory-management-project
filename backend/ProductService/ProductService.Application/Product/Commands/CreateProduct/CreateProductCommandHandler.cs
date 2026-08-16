@@ -25,7 +25,7 @@ public class CreateProductCommandHandler(ILogger<CreateProductCommandHandler> lo
             await productRepository.AddAsync(product, cancellationToken).ConfigureAwait(false);
             await unitOfWork.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-            logger.LogInformation("Producto creado correctamente con Id: {@ProductId}", product.Id.Value);
+            logger.LogInformation("Product created successfully with Id: {ProductId}", product.Id.Value);
 
             return product.Id.Value;
 

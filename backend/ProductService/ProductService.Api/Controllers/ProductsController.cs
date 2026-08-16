@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductService.Api.Contracts.Request.Product;
 using ProductService.Api.Shared;
 using ProductService.Application.Product.Commands.CreateProduct;
+using ProductService.Application.Product.Commands.UpdateProduct;
 
 namespace ProductService.Api.Controllers;
 
@@ -37,6 +38,33 @@ public class ProductsController(ISender mediator) : ApiControllerBase
 
         return result.Match<IActionResult>(
             id => Created($"/api/products/{id}", new { id }),
+            HandleErrors);
+    }
+
+    /// <summary>
+    /// Update an existing product
+    /// </summary>
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateProduct(
+        Guid id,
+        [FromBody] UpdateProductRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateProductCommand(
+            id,
+            request.Name,
+            request.Description,
+            request.Category,
+            request.Price,
+            request.ImageUrl);
+
+        var result = await mediator.Send(command, cancellationToken);
+
+        return result.Match<IActionResult>(
+            _ => NoContent(),
             HandleErrors);
     }
 }
