@@ -1,10 +1,12 @@
-<mat-toolbar color="primary">
-  <span>Gestión de Inventarios</span>
-  <span class="spacer"></span>
-  <a mat-button routerLink="/productos">Productos</a>
-  <a mat-button routerLink="/transacciones">Transacciones</a>
-</mat-toolbar>
+<header class="navbar">
+  <span class="brand">GESTIÓN DE INVENTARIOS</span>
 
-<main class="container">
+  <nav class="nav-links">
+    <a routerLink="/productos" routerLinkActive="active">Productos</a>
+    <a routerLink="/transacciones" routerLinkActive="active">Transacciones</a>
+  </nav>
+</header>
+
+<main class="content">
   <router-outlet />
 </main>
