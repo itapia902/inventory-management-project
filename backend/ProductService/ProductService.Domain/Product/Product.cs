@@ -1,4 +1,5 @@
-﻿using ProductService.Domain.Primitives;
+﻿using ErrorOr;
+using ProductService.Domain.Primitives;
 using ProductService.Domain.Product.ValueObjects;
 
 namespace ProductService.Domain.Product;
@@ -15,7 +16,7 @@ public class Product : AggregateRoot<ProductId>
     public DateTime CreatedDateTime { get; set; }
     public DateTime? UpdatedDateTime { get; set; }
 
-    private Product (ProductId id, string name, string description, string category, decimal price, string? imageUrl,int stock, bool isActive) :base(id)
+    private Product (ProductId id, string name, string description, string category, decimal price, string? imageUrl,int stock, bool isActive, DateTime createdDateTime) :base(id)
     {
         Name = name;
         Description = description;
@@ -24,9 +25,10 @@ public class Product : AggregateRoot<ProductId>
         Stock = stock;
         ImageUrl = imageUrl;
         IsActive = isActive;
+        CreatedDateTime = createdDateTime;
     }
     public static Product Create(string name, string description, string category, decimal price, string? imageUrl, int stock) 
-        =>new (ProductId.CreateUnique(),  name,  description,  category,  price,  imageUrl,  stock, true);
+        =>new (ProductId.CreateUnique(),  name,  description,  category,  price,  imageUrl,  stock, true,DateTime.UtcNow);
 
     public void Update(string name, string description, string category, decimal price, string? imageUrl)
     {
@@ -38,6 +40,18 @@ public class Product : AggregateRoot<ProductId>
         Category = category;
         Price = price;
         ImageUrl = imageUrl;
+        UpdatedDateTime = DateTime.UtcNow;
     }
-    
+    public void UpdateStock(int stock)
+    {
+        Stock = stock;
+    }
+    public void Deactivate()
+    {
+        if (!IsActive)
+            return;
+
+        IsActive = false;
+        UpdatedDateTime = DateTime.UtcNow;
+    }
 }
