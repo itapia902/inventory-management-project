@@ -13,17 +13,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatChipsModule } from '@angular/material/chips';
 import { finalize } from 'rxjs';
 import { Transaction, TransactionFilter, TransactionType } from '../../models/transaction.model';
 import { TransactionService } from '../../services/transaction.service';
 import { ProductService } from '../../../products/services/product.service';
 import { Product } from '../../../products/models/product.model';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-transaction-list',
-  providers: [provideNativeDateAdapter()],
+  selector: 'app-transaction-list',  
   imports: [
     CommonModule,
     FormsModule,
@@ -38,7 +37,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
     MatDatepickerModule,
     MatCardModule,
     MatProgressBarModule,
-    MatChipsModule
+    MatTooltipModule
   ],
   templateUrl: './transaction-list.html',
   styleUrl: './transaction-list.scss'

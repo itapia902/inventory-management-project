@@ -5,6 +5,11 @@
   gap: 16px;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+}
+
+.filter-row mat-form-field {
+  flex: 0 1 220px;
 }
 
 .filter-actions { display: flex; gap: 8px; }

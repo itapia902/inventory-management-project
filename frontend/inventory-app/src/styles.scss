@@ -1,73 +1,119 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
 html {
+  color-scheme: light;
+  @include mat.theme((
+    color: mat.$azure-palette,
+    typography: Roboto,
+    density: 0
+  ));
+}
+
+html, body {
   height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
-  );
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
   margin: 0;
-  height: 100%;
-}
-.snackbar-success {
-  --mdc-snackbar-container-color: #2e7d32;
-  --mat-snack-bar-container-color: #2e7d32;
-
-  .mdc-snackbar__surface {
-    background-color: #2e7d32 !important;
-  }
-
-  .mdc-snackbar__label,
-  .mat-mdc-snack-bar-label {
-    color: #ffffff !important;
-  }
-
-  .mat-mdc-snack-bar-action {
-    color: #ffffff !important;
-  }
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #fafafa;
 }
 
-.snackbar-error {
-  --mdc-snackbar-container-color: #c62828;
-  --mat-snack-bar-container-color: #c62828;
+.snackbar-success .mdc-snackbar__surface {
+  background-color: #2e7d32 !important;
+}
 
-  .mdc-snackbar__surface {
-    background-color: #c62828 !important;
-  }
+.snackbar-success .mdc-snackbar__label,
+.snackbar-success .mat-mdc-snack-bar-action {
+  color: #ffffff !important;
+}
 
-  .mdc-snackbar__label,
-  .mat-mdc-snack-bar-label {
-    color: #ffffff !important;
-  }
+.snackbar-error .mdc-snackbar__surface {
+  background-color: #c62828 !important;
+}
 
-  .mat-mdc-snack-bar-action {
-    color: #ffffff !important;
-  }
+.snackbar-error .mdc-snackbar__label,
+.snackbar-error .mat-mdc-snack-bar-action {
+  color: #ffffff !important;
+}
+
+.page-title {
+  text-align: center;
+  font-weight: 400;
+  margin: 0 0 20px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+}
+
+.action-buttons .mat-mdc-icon-button {
+  width: 34px;
+  height: 34px;
+  padding: 5px;
+  line-height: 34px;
+}
+
+.action-buttons .mat-mdc-icon-button .mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.btn-view {
+  --mat-icon-button-icon-color: #00897b;
+  --mdc-icon-button-icon-color: #00897b;
+}
+
+.btn-edit {
+  --mat-icon-button-icon-color: #1976d2;
+  --mdc-icon-button-icon-color: #1976d2;
+}
+
+.btn-delete {
+  --mat-icon-button-icon-color: rgba(0, 0, 0, 0.7);
+  --mdc-icon-button-icon-color: rgba(0, 0, 0, 0.7);
+}
+
+.btn-view .mat-icon   { color: #00897b; }
+.btn-edit .mat-icon   { color: #1976d2; }
+.btn-delete .mat-icon { color: rgba(0, 0, 0, 0.7); }
+
+.table-thumb {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  margin: 4px 0;
+}
+
+.no-image {
+  color: #b0bec5;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
 }

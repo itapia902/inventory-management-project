@@ -7,6 +7,11 @@
   gap: 16px;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+}
+
+.filter-row mat-form-field {
+  flex: 0 1 220px;
 }
 
 .filter-actions {
@@ -22,15 +27,8 @@
   width: 100%;
 }
 
-.thumb {
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
 .empty {
   padding: 32px;
   text-align: center;
   color: rgba(0, 0, 0, 0.54);
-}
+}   

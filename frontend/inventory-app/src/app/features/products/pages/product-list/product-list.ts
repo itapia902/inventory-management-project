@@ -40,7 +40,7 @@ export class ProductList implements OnInit {
   readonly products = signal<Product[]>([]);
   readonly totalItems = signal(0);
   readonly loading = signal(false);
-  readonly displayedColumns = ['imageUrl', 'name', 'category', 'price', 'stock', 'actions'];
+  displayedColumns = ['name', 'category', 'price', 'stock', 'imageUrl', 'actions'];
 
   filter: ProductFilter = { page: 1, pageSize: 10 };
 
